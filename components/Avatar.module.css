@@ -1,0 +1,27 @@
+.avatars {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+
+.avatar {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--color-card);
+  box-shadow: var(--shadow-xs);
+  background: var(--color-mist);
+}
+
+.avatar > div {
+  border-radius: 50%;
+}
+
+.avatarClr {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 0 var(--color-line-tint));
+}

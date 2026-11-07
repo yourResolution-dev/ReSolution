@@ -1,0 +1,74 @@
+.skipLink {
+  position: absolute;
+  z-index: 9999;
+  left: 50%;
+  bottom: -120%;
+  transform: translateX(-50%);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  text-decoration: none;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: bottom var(--dur-fast) var(--ease-out);
+}
+
+.skipLink:focus {
+  bottom: var(--space-3);
+}
+
+.main {
+  position: relative;
+}
+
+.topBand {
+  position: relative;
+  overflow: clip;
+  background: var(--gradient-band);
+  isolation: isolate;
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glowA {
+  top: -22%;
+  right: -6%;
+  width: min(600px, 60vw);
+  aspect-ratio: 1;
+  background: var(--color-glow-violet);
+  opacity: 0.55;
+}
+
+.glowB {
+  top: 6%;
+  left: -16%;
+  width: min(480px, 52vw);
+  aspect-ratio: 1;
+  background: var(--color-glow-blue);
+  opacity: 0.42;
+}
+
+@media (max-width: 700px) {
+  .glow {
+    filter: blur(64px);
+  }
+
+  .glowA {
+    width: 70vw;
+    right: -22%;
+    opacity: 0.45;
+  }
+
+  .glowB {
+    width: 62vw;
+    left: -26%;
+  }
+}

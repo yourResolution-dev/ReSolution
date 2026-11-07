@@ -1,0 +1,16 @@
+.headline {
+  display: grid;
+  gap: var(--space-4);
+  align-content: end;
+  min-width: 0;
+}
+
+.title {
+  max-width: 22ch;
+}
+
+@media (max-width: 900px) {
+  .title {
+    max-width: 26ch;
+  }
+}

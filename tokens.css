@@ -1,0 +1,205 @@
+/* Hallmark · macrostructure: Marquee Hero (reference-locked) · tone: technical-premium
+ * theme: studied-DNA (source: user-supplied Reference screenshots, 10 frames)
+ * paper: light oklch(100% 0 0) · accent: electric blue oklch(57% 0.235 266) → violet oklch(59% 0.215 292)
+ * display: Inter Tight · body: Inter · script accent: Caveat
+ * tokens: color · gradient · font · text · space · radius · shadow · motion
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Surfaces ---- */
+  --color-paper: oklch(100% 0 0);
+  --color-canvas: oklch(99.3% 0.003 275);
+  --color-mist: oklch(97.7% 0.009 270);
+  --color-mist-deep: oklch(96.1% 0.016 268);
+  --color-card: oklch(100% 0 0);
+  --color-veil: oklch(100% 0 0 / 82%);
+  --color-veil-strong: oklch(100% 0 0 / 92%);
+  --color-wash: oklch(100% 0 0 / 62%);
+
+  /* ---- Ink ---- */
+  --color-ink: oklch(23% 0.062 268);
+  --color-ink-2: oklch(31% 0.05 268);
+  --color-body: oklch(48% 0.028 265);
+  --color-muted: oklch(56% 0.025 265);
+  --color-faint: oklch(68% 0.02 265);
+
+  /* ---- Lines ---- */
+  --color-line: oklch(93% 0.012 270);
+  --color-line-strong: oklch(88% 0.02 270);
+  --color-line-tint: oklch(91% 0.015 270);
+
+  /* ---- Accent ---- */
+  --color-accent: oklch(57% 0.235 266);
+  --color-accent-strong: oklch(50% 0.235 266);
+  --color-accent-ink: oklch(44% 0.2 266);
+  --color-accent-soft: oklch(96.4% 0.025 266);
+  --color-accent-tint: oklch(92.5% 0.05 266);
+  --color-focus: oklch(57% 0.235 266);
+
+  /* ---- Secondary hues ---- */
+  --color-violet: oklch(59% 0.215 292);
+  --color-violet-ink: oklch(49% 0.2 292);
+  --color-violet-soft: oklch(96.6% 0.026 292);
+  --color-violet-tint: oklch(92% 0.05 292);
+  --color-teal: oklch(66% 0.1 205);
+  --color-teal-ink: oklch(48% 0.09 205);
+  --color-teal-soft: oklch(96.8% 0.03 205);
+  --color-teal-tint: oklch(92% 0.06 205);
+  --color-gold: oklch(78% 0.16 78);
+  --color-gold-soft: oklch(96.5% 0.04 90);
+  --color-danger: oklch(58% 0.19 25);
+  --color-danger-soft: oklch(96% 0.03 25);
+  --color-success: oklch(56% 0.13 155);
+  --color-success-soft: oklch(96% 0.035 155);
+  --color-night: oklch(17% 0.03 268);
+  --color-scrim: oklch(20% 0.04 268 / 58%);
+
+  /* ---- Tool marks ---- */
+  --color-logo-react: oklch(76% 0.12 215);
+  --color-logo-next: oklch(28% 0.03 268);
+  --color-logo-python: oklch(66% 0.12 240);
+  --color-logo-flask: oklch(40% 0.02 268);
+  --color-logo-kotlin: oklch(62% 0.22 300);
+  --color-logo-flutter: oklch(68% 0.16 240);
+  --color-logo-html: oklch(66% 0.2 40);
+  --color-logo-css: oklch(58% 0.17 255);
+  --color-logo-js: oklch(82% 0.16 95);
+  --color-logo-ts: oklch(58% 0.16 255);
+  --color-logo-mysql: oklch(55% 0.11 210);
+  --color-logo-postgres: oklch(52% 0.13 255);
+
+  /* ---- Java / Spring Boot / Docker / Tailwind ---- */
+  --color-logo-java: oklch(58% 0.14 255);
+  --color-logo-springboot: oklch(62% 0.18 110);
+  --color-logo-docker: oklch(58% 0.16 210);
+  --color-logo-tailwind: oklch(59% 0.16 255);
+
+  /* ---- Botanical ---- */
+  --color-leaf: oklch(68% 0.1 154);
+  --color-leaf-deep: oklch(52% 0.09 156);
+  --color-leaf-light: oklch(82% 0.07 152);
+  --color-terracotta: oklch(72% 0.07 55);
+
+  /* ---- Screen wallpaper ---- */
+  --color-peak-1: oklch(88% 0.05 248);
+  --color-peak-2: oklch(79% 0.065 256);
+  --color-peak-3: oklch(69% 0.07 262);
+  --color-snowcap: oklch(99% 0.005 250);
+  --color-lake: oklch(86% 0.05 232);
+  --gradient-screen-sky: linear-gradient(
+    180deg,
+    oklch(90% 0.055 236) 0%,
+    oklch(96% 0.025 240) 52%,
+    oklch(99% 0.004 250) 100%
+  );
+
+  /* ---- Interior illustration ---- */
+  --color-floor: oklch(84% 0.012 75);
+  --color-floor-deep: oklch(76% 0.015 72);
+  --color-wood: oklch(78% 0.045 68);
+  --color-wood-deep: oklch(66% 0.05 64);
+  --color-shadow: oklch(60% 0.02 265 / 22%);
+
+  /* ---- Ambient glows ---- */
+  --color-glow-blue: oklch(88% 0.09 265);
+  --color-glow-violet: oklch(90% 0.08 295);
+  --color-glow-mist: oklch(97% 0.012 270);
+
+  /* ---- Gradients ---- */
+  --gradient-brand: linear-gradient(97deg, var(--color-accent) 0%, var(--color-violet) 100%);
+  --gradient-brand-soft: linear-gradient(135deg, var(--color-accent-soft) 0%, var(--color-violet-soft) 100%);
+  --gradient-band: linear-gradient(180deg, var(--color-mist) 0%, var(--color-canvas) 62%, var(--color-paper) 100%);
+  --gradient-room: linear-gradient(165deg, var(--color-mist-deep) 0%, var(--color-mist) 45%, var(--color-paper) 100%);
+  --gradient-night: linear-gradient(150deg, var(--color-night) 0%, var(--color-ink) 55%, var(--color-accent-ink) 100%);
+  --gradient-sheen: linear-gradient(120deg, var(--color-paper) 0%, var(--color-mist) 48%, var(--color-mist-deep) 100%);
+  --gradient-portrait-a: linear-gradient(150deg, var(--color-mist-deep) 0%, var(--color-accent-tint) 100%);
+  --gradient-portrait-b: linear-gradient(150deg, var(--color-violet-soft) 0%, var(--color-accent-tint) 100%);
+  --gradient-portrait-c: linear-gradient(150deg, var(--color-teal-soft) 0%, var(--color-accent-soft) 100%);
+  --gradient-portrait-d: linear-gradient(150deg, var(--color-accent-soft) 0%, var(--color-violet-tint) 100%);
+  --gradient-portrait-e: linear-gradient(150deg, var(--color-mist-deep) 0%, var(--color-violet-tint) 100%);
+  --gradient-portrait-f: linear-gradient(150deg, var(--color-teal-soft) 0%, var(--color-mist-deep) 100%);
+  --gradient-portrait-0: var(--gradient-portrait-a);
+  --gradient-portrait-1: var(--gradient-portrait-b);
+  --gradient-portrait-2: var(--gradient-portrait-c);
+  --gradient-portrait-3: var(--gradient-portrait-d);
+  --gradient-portrait-4: var(--gradient-portrait-e);
+  --gradient-portrait-5: var(--gradient-portrait-f);
+  --gradient-avatar-0: linear-gradient(150deg, var(--color-violet-tint) 0%, var(--color-accent-tint) 100%);
+  --gradient-avatar-1: linear-gradient(150deg, var(--color-teal-tint) 0%, var(--color-accent-tint) 100%);
+  --gradient-avatar-2: linear-gradient(150deg, var(--color-accent-tint) 0%, var(--color-violet-tint) 100%);
+  --gradient-avatar-3: linear-gradient(150deg, var(--color-violet-tint) 0%, var(--color-teal-tint) 100%);
+
+  /* ---- Type ---- */
+  --font-display: "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-body: "Inter Variable", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-script: "Caveat", "Segoe Script", cursive;
+
+  --text-display: clamp(2.5rem, 4.35vw, 4.05rem);
+  --text-h2: clamp(1.95rem, 2.85vw, 2.7rem);
+  --text-h2-sm: clamp(1.6rem, 2.1vw, 2rem);
+  --text-h3: 1.0625rem;
+  --text-lead: 1rem;
+  --text-body: 0.9375rem;
+  --text-sm: 0.8125rem;
+  --text-xs: 0.75rem;
+  --text-2xs: 0.6875rem;
+  --text-3xs: 0.625rem;
+
+  --leading-display: 1.03;
+  --leading-heading: 1.12;
+  --leading-body: 1.68;
+
+  --tracking-display: -0.042em;
+  --tracking-heading: -0.035em;
+  --tracking-eyebrow: 0.19em;
+
+  /* ---- Space (4pt) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 56px;
+  --space-11: 64px;
+  --space-12: 80px;
+  --space-13: 96px;
+  --space-14: 120px;
+  --space-15: 160px;
+
+  --container: 1168px;
+  --gutter: clamp(20px, 4vw, 32px);
+  --section-y: clamp(64px, 7vw, 104px);
+  --nav-h: 76px;
+
+  /* ---- Radii ---- */
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-pill: 999px;
+
+  /* ---- Shadows ---- */
+  --shadow-xs: 0 1px 2px oklch(25% 0.05 268 / 5%);
+  --shadow-sm: 0 1px 2px oklch(25% 0.05 268 / 5%), 0 8px 20px -14px oklch(25% 0.05 268 / 18%);
+  --shadow-md: 0 1px 2px oklch(25% 0.05 268 / 4%), 0 18px 40px -24px oklch(25% 0.05 268 / 22%);
+  --shadow-lg: 0 2px 4px oklch(25% 0.05 268 / 4%), 0 30px 70px -34px oklch(25% 0.06 268 / 30%);
+  --shadow-float: 0 1px 2px oklch(25% 0.05 268 / 4%), 0 14px 30px -18px oklch(25% 0.05 268 / 20%);
+  --shadow-nav: 0 12px 30px -26px oklch(25% 0.05 268 / 45%);
+  --shadow-focus: 0 0 0 3px oklch(57% 0.235 266 / 22%);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-med: 260ms;
+  --dur-slow: 560ms;
+}
