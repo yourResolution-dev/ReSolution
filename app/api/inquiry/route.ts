@@ -19,6 +19,8 @@ type InquiryPayload = {
   name?: unknown;
   email?: unknown;
   projectType?: unknown;
+  budget?: unknown;
+  timeline?: unknown;
   message?: unknown;
   reference?: unknown;
   company?: unknown;
@@ -28,6 +30,8 @@ type CleanInquiry = {
   name: string;
   email: string;
   projectType: string;
+  budget?: string;
+  timeline?: string;
   message: string;
   reference: string;
 };
@@ -63,6 +67,8 @@ function validate(payload: InquiryPayload) {
       name,
       email,
       projectType,
+      budget: asString(payload.budget, 60),
+      timeline: asString(payload.timeline, 60),
       message,
       reference: asString(payload.reference, 120),
     } satisfies CleanInquiry,
@@ -105,6 +111,8 @@ async function sendWithResend(inquiry: CleanInquiry) {
     `Name: ${inquiry.name}`,
     `Email: ${inquiry.email}`,
     `Project type: ${inquiry.projectType}`,
+    inquiry.budget ? `Estimated budget: ${inquiry.budget}` : "",
+    inquiry.timeline ? `Desired timeline: ${inquiry.timeline}` : "",
     inquiry.reference ? `Reference: ${inquiry.reference}` : "",
   ].filter(Boolean);
 

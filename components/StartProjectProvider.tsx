@@ -25,6 +25,19 @@ const PROJECT_TYPES = [
   "Something else",
 ] as const;
 
+const BUDGET_RANGES = [
+  "< $5k",
+  "$5k – $15k",
+  "$15k – $50k",
+  "$50k+",
+] as const;
+
+const TIMELINES = [
+  "< 1 month",
+  "1 – 3 months",
+  "Flexible",
+] as const;
+
 type StartProjectContextValue = {
   openInquiry: (subject?: string) => void;
 };
@@ -43,6 +56,8 @@ type FormState = {
   name: string;
   email: string;
   projectType: string;
+  budget: string;
+  timeline: string;
   message: string;
   company: string;
 };
@@ -53,6 +68,8 @@ const emptyForm: FormState = {
   name: "",
   email: "",
   projectType: PROJECT_TYPES[0],
+  budget: "",
+  timeline: "",
   message: "",
   company: "",
 };
@@ -71,6 +88,23 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
   const [copied, setCopied] = useState(false);
   const [brief, setBrief] = useState("");
 
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem("resolution_inquiry_draft");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && typeof parsed === "object") {
+          setForm((current) => ({
+            ...current,
+            ...parsed,
+          }));
+        }
+      }
+    } catch {
+      // sessionStorage not available
+    }
+  }, []);
+
   const openInquiry = useCallback((nextSubject?: string) => {
     triggerRef.current =
       typeof document !== "undefined"
@@ -80,10 +114,10 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
     setStatus("idle");
     setErrors({});
     const matchedType = PROJECT_TYPES.find((type) => type === nextSubject);
-    setForm({
-      ...emptyForm,
-      projectType: matchedType ?? PROJECT_TYPES[0],
-    });
+    setForm((current) => ({
+      ...current,
+      projectType: matchedType ?? current.projectType ?? PROJECT_TYPES[0],
+    }));
     setCopied(false);
     setIsOpen(true);
   }, []);
@@ -117,7 +151,13 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
   const contextValue = useMemo(() => ({ openInquiry }), [openInquiry]);
 
   const updateField = (field: keyof FormState, value: string) => {
-    setForm((current) => ({ ...current, [field]: value }));
+    setForm((current) => {
+      const next = { ...current, [field]: value };
+      try {
+        sessionStorage.setItem("resolution_inquiry_draft", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
@@ -147,6 +187,8 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
       `Name: ${form.name.trim()}`,
       `Email: ${form.email.trim()}`,
       `Project type: ${form.projectType}`,
+      form.budget ? `Estimated budget: ${form.budget}` : "",
+      form.timeline ? `Desired timeline: ${form.timeline}` : "",
       subject ? `Reference: ${subject}` : "",
     ].filter(Boolean);
 
@@ -168,6 +210,8 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
           name: form.name.trim(),
           email: form.email.trim(),
           projectType: form.projectType,
+          budget: form.budget,
+          timeline: form.timeline,
           message: form.message.trim(),
           reference: subject ?? "",
           company: form.company,
@@ -177,6 +221,9 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
         | { ok?: boolean; sent?: boolean }
         | null;
       setDelivered(Boolean(response.ok && result?.ok && result?.sent));
+      try {
+        sessionStorage.removeItem("resolution_inquiry_draft");
+      } catch {}
     } catch {
       // Network failure: keep the prepared brief so the visitor can still send it.
       setDelivered(false);
@@ -386,6 +433,56 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
                     ))}
                   </select>
                   <ChevronDown size={16} aria-hidden="true" />
+                </div>
+              </div>
+
+              <div className={styles.field}>
+                <label id="label-budget">Estimated budget (optional)</label>
+                <div
+                  className={styles.pillGroup}
+                  role="radiogroup"
+                  aria-labelledby="label-budget"
+                >
+                  {BUDGET_RANGES.map((range) => (
+                    <button
+                      key={range}
+                      type="button"
+                      className={styles.pillBtn}
+                      data-active={form.budget === range || undefined}
+                      role="radio"
+                      aria-checked={form.budget === range}
+                      onClick={() =>
+                        updateField("budget", form.budget === range ? "" : range)
+                      }
+                    >
+                      {range}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.field}>
+                <label id="label-timeline">Desired timeline (optional)</label>
+                <div
+                  className={styles.pillGroup}
+                  role="radiogroup"
+                  aria-labelledby="label-timeline"
+                >
+                  {TIMELINES.map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      className={styles.pillBtn}
+                      data-active={form.timeline === t || undefined}
+                      role="radio"
+                      aria-checked={form.timeline === t}
+                      onClick={() =>
+                        updateField("timeline", form.timeline === t ? "" : t)
+                      }
+                    >
+                      {t}
+                    </button>
+                  ))}
                 </div>
               </div>
 

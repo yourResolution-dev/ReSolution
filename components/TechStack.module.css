@@ -26,6 +26,42 @@
   margin-bottom: var(--space-4);
 }
 
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-6) 0 var(--space-7);
+}
+
+.filterBtn {
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line);
+  background: var(--color-card);
+  color: var(--color-body);
+  font-size: var(--text-xs);
+  font-weight: 550;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.filterBtn:hover {
+  border-color: var(--color-accent-tint);
+  color: var(--color-ink);
+  transform: translateY(-1px);
+}
+
+.filterBtn[data-active="true"] {
+  background: var(--color-night);
+  border-color: var(--color-night);
+  color: var(--color-paper);
+  box-shadow: var(--shadow-sm);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -38,7 +74,8 @@
 }
 
 .badge {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   gap: var(--space-3);

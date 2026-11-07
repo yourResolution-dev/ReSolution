@@ -50,11 +50,41 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Resolution",
+  url: "https://resolution.dev",
+  logo: "https://resolution.dev/icon.svg",
+  description:
+    "We design and build modern websites, mobile apps and software systems that solve real problems and create meaningful impact.",
+  email: "hello@resolution.dev",
+  sameAs: [
+    "https://github.com/yourResolution-dev/ReSolution",
+    "https://www.linkedin.com",
+    "https://x.com",
+    "https://www.instagram.com",
+  ],
+  knowsAbout: [
+    "Web Development",
+    "Mobile Development",
+    "UI / UX Design",
+    "Software Systems",
+    "AI & Automation",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body>
         <a className="skipLink" href="#main">
           Skip to content
