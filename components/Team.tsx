@@ -47,7 +47,7 @@ export function Team() {
           title="People Behind Resolution"
           titleId="team-title"
           copy="Engineers, designers, and product specialists shipping production-ready software systems."
-          action={{ label: "Meet the Team", href: "#team" }}
+          action={{ label: "Work with Us", href: "#contact" }}
         />
 
         <div className={styles.carousel}>
@@ -55,6 +55,8 @@ export function Team() {
             <ul
               className={styles.track}
               ref={trackRef}
+              tabIndex={0}
+              aria-label="Team members carousel (use Left and Right arrow keys to navigate)"
               style={
                 {
                   transform: `translate3d(-${index * step}px, 0, 0)`,
@@ -101,10 +103,8 @@ export function Team() {
                         <li>
                           <a
                             className={styles.social}
-                            href="https://resolution.dev"
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={`${member.name} portfolio`}
+                            href="#projects"
+                            aria-label={`${member.name}'s featured projects`}
                           >
                             <Globe size={14} strokeWidth={1.7} aria-hidden="true" />
                           </a>

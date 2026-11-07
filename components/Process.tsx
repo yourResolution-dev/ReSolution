@@ -50,7 +50,7 @@ export function Process() {
           title="From Idea to Impact"
           titleId="process-title"
           copy="A clear and collaborative process to turn your vision into a successful product."
-          action={{ label: "Learn More", href: "#about" }}
+          action={{ label: "Our Tech Stack", href: "#technology" }}
         />
 
         <ol className={styles.timeline}>

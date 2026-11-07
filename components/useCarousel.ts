@@ -41,12 +41,65 @@ export function useCarousel(itemCount: number, getPerView: (width: number) => nu
   }, [maxIndex]);
 
   const next = useCallback(() => {
-    setIndex((current) => (current >= maxIndex ? 0 : current + 1));
+    setIndex((current) => Math.min(current + 1, maxIndex));
   }, [maxIndex]);
 
   const previous = useCallback(() => {
-    setIndex((current) => (current <= 0 ? maxIndex : current - 1));
-  }, [maxIndex]);
+    setIndex((current) => Math.max(current - 1, 0));
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isSwiping = true;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!isSwiping || e.changedTouches.length !== 1) return;
+      isSwiping = false;
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      const diffX = endX - startX;
+      const diffY = endY - startY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          next();
+        } else {
+          previous();
+        }
+      }
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        previous();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        next();
+      }
+    };
+
+    track.addEventListener("touchstart", onTouchStart, { passive: true });
+    track.addEventListener("touchend", onTouchEnd, { passive: true });
+    track.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      track.removeEventListener("touchstart", onTouchStart);
+      track.removeEventListener("touchend", onTouchEnd);
+      track.removeEventListener("keydown", onKeyDown);
+    };
+  }, [next, previous]);
 
   return {
     index,

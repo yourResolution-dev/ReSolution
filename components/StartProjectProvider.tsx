@@ -59,6 +59,7 @@ const emptyForm: FormState = {
 
 export function StartProjectProvider({ children }: { children: ReactNode }) {
   const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [subject, setSubject] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>(emptyForm);
@@ -71,6 +72,10 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
   const [brief, setBrief] = useState("");
 
   const openInquiry = useCallback((nextSubject?: string) => {
+    triggerRef.current =
+      typeof document !== "undefined"
+        ? (document.activeElement as HTMLElement | null)
+        : null;
     setSubject(nextSubject ?? null);
     setStatus("idle");
     setErrors({});
@@ -89,6 +94,7 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
     setIsOpen(false);
     const dialog = dialogRef.current;
     if (dialog?.open) dialog.close();
+    triggerRef.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -182,7 +188,18 @@ export function StartProjectProvider({ children }: { children: ReactNode }) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(brief);
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(brief);
+      } else if (typeof document !== "undefined") {
+        const textarea = document.createElement("textarea");
+        textarea.value = brief;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2200);
     } catch {

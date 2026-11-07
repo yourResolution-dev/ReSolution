@@ -18,7 +18,11 @@ const FOOTER_LINKS = [
 
 const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com", Icon: FaLinkedinIn },
-  { label: "GitHub", href: "https://github.com", Icon: FaGithub },
+  {
+    label: "GitHub",
+    href: "https://github.com/yourResolution-dev/ReSolution",
+    Icon: FaGithub,
+  },
   { label: "X", href: "https://x.com", Icon: FaXTwitter },
   { label: "Instagram", href: "https://www.instagram.com", Icon: FaInstagram },
 ];

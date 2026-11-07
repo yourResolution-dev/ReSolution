@@ -47,7 +47,7 @@ export function Projects() {
           title="Our Latest Work"
           titleId="projects-title"
           copy="A few of the products we've built and delivered for our clients and our organisation."
-          action={{ label: "View All Projects", href: "#projects" }}
+          action={{ label: "Build with Us", href: "#contact" }}
         />
 
         <ul className={styles.grid}>

@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <main id="main" className={styles.main}>
+      <main id="main" className={styles.main} tabIndex={-1}>
         <div id="home" className={styles.topBand}>
           <div className={`${styles.glow} ${styles.glowA}`} aria-hidden="true" />
           <div className={`${styles.glow} ${styles.glowB}`} aria-hidden="true" />

@@ -61,7 +61,7 @@ export function Services() {
           title="What We Do"
           titleId="services-title"
           copy="End-to-end development services to bring your ideas to life."
-          action={{ label: "View All Services", href: "#services" }}
+          action={{ label: "Start a Project", href: "#contact" }}
         />
 
         <ul className={styles.grid}>

@@ -129,6 +129,8 @@ export function Testimonials() {
           <ul
             className={styles.track}
             ref={trackRef}
+            tabIndex={0}
+            aria-label="Client testimonials carousel (use Left and Right arrow keys to navigate)"
             style={
               {
                 transform: `translate3d(-${index * step}px, 0, 0)`,
